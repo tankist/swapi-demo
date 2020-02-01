@@ -75,7 +75,7 @@ class Planet {
 }
 
 async function main() {
-  const port = 8888;
+  const port = process.env.PORT;
   const db = await sqlite.open('./sw.sqlite3', { Promise });
   const app = express();
   app.use('/graphql', graphqlHTTP({
@@ -84,9 +84,9 @@ async function main() {
     context: { db },
     graphiql: true,
   }));
-  app.listen(8888);
+  app.listen(port);
 
-  console.log('http://localhost:8888/graphql');
+  console.log(`http://localhost:${port}/graphql`);
 }
 
 main().catch((err) => {
